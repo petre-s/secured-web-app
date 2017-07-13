@@ -1,11 +1,8 @@
 package com.fun.securedwebapp;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PreDestroy;
 
 /**
  * Created by pstanaringa on 11.07.2017.
