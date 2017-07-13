@@ -24,9 +24,4 @@ public class SessionResource {
     public int getCount() {
         return myCount;
     }
-
-    @PreDestroy
-    public void preDestroy(){
-        myCount = 0;
-    }
 }
