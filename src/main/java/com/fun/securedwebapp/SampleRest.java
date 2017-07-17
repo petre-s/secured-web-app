@@ -1,5 +1,6 @@
 package com.fun.securedwebapp;
 
+import com.fun.db.TagRepository;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,17 +22,19 @@ import java.nio.file.attribute.UserPrincipal;
 @RequestMapping("/webapi/v1")
 public class SampleRest {
 
-    @Autowired
-    private SessionResource sessionResource;
+    private final TagRepository tagRepository;
 
     @Autowired
-    private HttpSession httpSession;
-    private String myName;
+    public SampleRest(TagRepository tagRepository){
+        this.tagRepository = tagRepository;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String getSample(@AuthenticationPrincipal User userPrincipal){
-       // httpSession.setMaxInactiveInterval(5);
-        return httpSession.getId() + " " + sessionResource.getCount() ;
+
+        return tagRepository.findAll().toString();
+
+        //return "test";
     }
 
     @RequestMapping(value="/secured", method = RequestMethod.GET)
