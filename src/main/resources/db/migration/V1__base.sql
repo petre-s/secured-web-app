@@ -1,26 +1,23 @@
-
 CREATE TABLE item (
-  id int(11) NOT NULL,
-  description varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  id INTEGER NOT NULL,
+  description varchar(255),
+  name varchar(255),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE tag (
-  id int(11) NOT NULL,
+  id INTEGER NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE item_tag (
-  id int(11) NOT NULL,
-  rating int(11) DEFAULT NULL,
-  item_id int(11) NOT NULL,
-  tag_id int(11) NOT NULL,
+  id INTEGER NOT NULL,
+  rating INTEGER,
+  item_id INTEGER NOT NULL,
+  tag_id INTEGER NOT NULL,
   PRIMARY KEY (id),
-  KEY FKjjb157o07631yt4a1h2fi2i4s (item_id),
-  KEY FKde89ewingaktwyec3nh82pirt (tag_id),
-  CONSTRAINT FKde89ewingaktwyec3nh82pirt FOREIGN KEY (tag_id) REFERENCES tag (id),
-  CONSTRAINT FKjjb157o07631yt4a1h2fi2i4s FOREIGN KEY (item_id) REFERENCES item (id)
+  FOREIGN KEY (tag_id) REFERENCES tag (id),
+  FOREIGN KEY (item_id) REFERENCES item (id)
 );
 
 
