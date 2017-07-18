@@ -1,6 +1,8 @@
 package com.fun.securedwebapp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,7 +11,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.sql.DataSource;
 import java.util.Collections;
 
 /**
@@ -18,6 +22,13 @@ import java.util.Collections;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+    private DataSource dataSource;
+
+    @Autowired
+    public WebSecurityConfig(DataSource dataSource){
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -31,14 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.userDetailsService(new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String user) throws UsernameNotFoundException {
-                if (!"admin".equals(user))
-                    throw new UsernameNotFoundException("Username not found");
+        builder.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username,password, enabled from users where username=?")
+                .authoritiesByUsernameQuery("SELECT username,role FROM users u  inner join user_roles r on u.id=r.user_id and u.username=?")
+                .passwordEncoder(new BCryptPasswordEncoder());
 
-                return new User("admin","admin", Collections.emptyList());
-            }
-        });//.passwordEncoder(new PlaintextPasswordEncoder());
     }
 }
