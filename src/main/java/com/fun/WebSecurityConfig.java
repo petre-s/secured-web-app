@@ -1,4 +1,4 @@
-package com.fun.securedwebapp;
+package com.fun;
 
 import com.fun.services.DatabaseUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers("/webapi/v1/secured/**").authenticated()
                 .and().formLogin()
-                .and().rememberMe().key("dasdsa");
+                .and().rememberMe().key("dasdsa")
+                .and().requiresChannel().anyRequest().requiresSecure();
 //                .and().csrf().disable();
 
     }
@@ -45,12 +46,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(databaseUserDetailService)
                 .passwordEncoder(new BCryptPasswordEncoder());
-
-        //        builder.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .usersByUsernameQuery("select username,password, enabled from users where username=?")
-//                .authoritiesByUsernameQuery("SELECT username,role FROM users u  inner join user_roles r on u.id=r.user_id and u.username=?")
-//                .passwordEncoder(new BCryptPasswordEncoder());
-
     }
 }
