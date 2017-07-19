@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class ItemTag {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Column

@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "ITEM")
 public class Item {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Column
