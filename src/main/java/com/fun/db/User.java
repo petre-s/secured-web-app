@@ -52,13 +52,13 @@ public class User implements UserDetails{
     List<Tag> tagList;
 
     @Transient
-    private Boolean accountNonExpired = false;
+    private Boolean accountNonExpired = true;
 
     @Transient
-    private Boolean accountNonLocked = false;
+    private Boolean accountNonLocked = true;
 
     @Transient
-    private Boolean credentialsNonExpired = false;
+    private Boolean credentialsNonExpired = true;
 
 
     @Override

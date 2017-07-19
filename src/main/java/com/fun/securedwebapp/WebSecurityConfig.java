@@ -1,5 +1,6 @@
 package com.fun.securedwebapp;
 
+import com.fun.services.DatabaseUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
@@ -22,11 +23,11 @@ import java.util.Collections;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-    private DataSource dataSource;
+    private DatabaseUserDetailService databaseUserDetailService;
 
     @Autowired
-    public WebSecurityConfig(DataSource dataSource){
-        this.dataSource = dataSource;
+    public void setDatabaseUserDetailService(DatabaseUserDetailService databaseUserDetailService) {
+        this.databaseUserDetailService = databaseUserDetailService;
     }
 
     @Override
@@ -42,11 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        builder.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username,password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("SELECT username,role FROM users u  inner join user_roles r on u.id=r.user_id and u.username=?")
+        builder.userDetailsService(databaseUserDetailService)
                 .passwordEncoder(new BCryptPasswordEncoder());
+
+        //        builder.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("select username,password, enabled from users where username=?")
+//                .authoritiesByUsernameQuery("SELECT username,role FROM users u  inner join user_roles r on u.id=r.user_id and u.username=?")
+//                .passwordEncoder(new BCryptPasswordEncoder());
 
     }
 }
