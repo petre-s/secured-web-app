@@ -1,5 +1,6 @@
 package com.fun.db;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class ItemTag {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TAG_ID", nullable = false)
+    @JsonIgnore
     private Tag tag;
 
     public Integer getId() {

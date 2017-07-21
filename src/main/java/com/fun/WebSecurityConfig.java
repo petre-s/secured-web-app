@@ -34,11 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
-                    .antMatchers("/webapi/v1/secured/**").authenticated()
+                    .antMatchers("/api/v1/secured/**").authenticated()
                 .and().formLogin()
                 .and().rememberMe().key("dasdsa")
-                .and().requiresChannel().anyRequest().requiresSecure();
-//                .and().csrf().disable();
+                .and().requiresChannel().anyRequest().requiresSecure()
+                .and().csrf().disable();
 
     }
 

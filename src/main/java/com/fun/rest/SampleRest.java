@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by pstanaringa on 06.07.2017.
  */
 @RestController
-@RequestMapping("/webapi/v1")
+@RequestMapping("/api/v1")
 public class SampleRest {
 
     private final TagRepository tagRepository;
@@ -23,16 +23,17 @@ public class SampleRest {
         this.tagRepository = tagRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getSample(@AuthenticationPrincipal User userPrincipal){
-
-        return tagRepository.findAll().toString();
-
-        //return "test";
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String getSample(@AuthenticationPrincipal User userPrincipal){
+//
+//        return tagRepository.findAll().toString();
+//
+//        //return "test";
+//    }
 
     @RequestMapping(value="/secured", method = RequestMethod.GET)
     public String getSample2(@AuthenticationPrincipal User userPrincipal){
+        userPrincipal.getAuthorities().size();
         return userPrincipal.getUsername()+" " +userPrincipal.getPassword();
     }
 }

@@ -1,5 +1,6 @@
 package com.fun.db;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Tag implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     public Integer getId() {
@@ -40,7 +42,9 @@ public class Tag implements Serializable {
         this.itemTagList = itemTagList;
     }
 
-    public UserDetails getUser() {
+
+
+    public User getUser() {
         return user;
     }
 

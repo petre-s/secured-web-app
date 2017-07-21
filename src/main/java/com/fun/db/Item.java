@@ -1,5 +1,7 @@
 package com.fun.db;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class Item {
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
+    @JsonIgnore
     private List<ItemTag> itemTagList;
 
     public Integer getId() {

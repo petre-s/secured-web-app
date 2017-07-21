@@ -15,7 +15,7 @@ import java.util.List;
 public class User implements UserDetails{
     public User(){}
 
-    public User(String username, String password, String email, Boolean enabled, List<GrantedAuthority> authorities) {
+    public User(String username, String password, String email, Boolean enabled, List<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -44,11 +44,10 @@ public class User implements UserDetails{
             name="user_roles",
             joinColumns=@JoinColumn(name="user_id")
     )
-    private List<GrantedAuthority> authorities;
+    private List<Authority> authorities;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Tag> tagList;
 
     @Transient
@@ -62,8 +61,8 @@ public class User implements UserDetails{
 
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public Collection<Authority> getAuthorities() {
+        return authorities;
     }
 
     public Integer getId() {
