@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by pstanaringa on 13.07.2017.
  */
-@RepositoryRestResource(collectionResourceDescription = @Description("The list of all tags"),itemResourceDescription = @Description("just a tag"))
+@RepositoryRestResource(
+        collectionResourceDescription = @Description("The list of all tags"),
+        itemResourceDescription = @Description("just a tag"))
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Integer> {
 }

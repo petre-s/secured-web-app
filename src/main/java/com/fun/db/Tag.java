@@ -17,7 +17,7 @@ public class Tag implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<ItemTag> itemTagList;
 
 
@@ -41,7 +41,6 @@ public class Tag implements Serializable {
     public void setItemTagList(List<ItemTag> itemTagList) {
         this.itemTagList = itemTagList;
     }
-
 
 
     public User getUser() {

@@ -36,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers("/api/v1/secured/**").authenticated()
                 .and().formLogin()
+                .and().httpBasic()
                 .and().rememberMe().key("dasdsa")
                 .and().requiresChannel().anyRequest().requiresSecure()
                 .and().csrf().disable();
