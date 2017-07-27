@@ -1,6 +1,9 @@
 package com.fun.db;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -17,11 +20,11 @@ public class Tag implements Serializable {
     @GeneratedValue
     private Integer id;
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ItemTag> itemTagList;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
@@ -42,7 +45,10 @@ public class Tag implements Serializable {
         this.itemTagList = itemTagList;
     }
 
-
+    @PrePersist
+    private void preSave(){
+        //setUser();
+    }
 
     public User getUser() {
         return user;

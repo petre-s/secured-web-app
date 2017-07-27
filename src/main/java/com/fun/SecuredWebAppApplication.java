@@ -8,16 +8,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.io.File;
 import java.io.IOException;
 
 @SpringBootApplication
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableAspectJAutoProxy
 public class SecuredWebAppApplication {
 
 	@Value("${http.port}")
 	private Integer httpPort;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SecuredWebAppApplication.class, args);
