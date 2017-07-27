@@ -45,10 +45,7 @@ public class Tag implements Serializable {
         this.itemTagList = itemTagList;
     }
 
-    @PrePersist
-    private void preSave(){
-        //setUser();
-    }
+
 
     public User getUser() {
         return user;
