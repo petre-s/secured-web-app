@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
         collectionResourceDescription = @Description("The list of all tags"),
         itemResourceDescription = @Description("just a tag"))
 @Repository
-@PreAuthorize("hasRole('ROLE_GOD')")
 public interface TagRepository extends CrudRepository<Tag, Integer> {
 
 }

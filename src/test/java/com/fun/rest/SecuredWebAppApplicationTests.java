@@ -23,14 +23,8 @@ import java.util.Arrays;
 public class SecuredWebAppApplicationTests {
 
 	@Autowired
-	TagRepository tagRepository;
-
-	@Autowired
 	UserRepository userRepository;
 
-
-	@Value("#{'${test.prop}'.split('_')[0]}")
-	private String httpPortTest;
 
 	@Test
 	@Transactional

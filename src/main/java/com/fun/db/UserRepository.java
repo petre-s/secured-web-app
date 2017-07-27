@@ -2,6 +2,7 @@ package com.fun.db;
 
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 /**
